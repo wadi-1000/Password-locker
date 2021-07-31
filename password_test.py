@@ -1,5 +1,5 @@
 import unittest #import unittest module
-from password import Password #import class Password
+from password import User #import class User
 
 class TestPassword(unittest.TestCase):
 
@@ -14,7 +14,7 @@ class TestPassword(unittest.TestCase):
         '''
         Method that runs tests before each test case has run.
         '''
-        self.new_password = Password("wadi","gmail.com","@wadi123") # create password object
+        self.new_password = User("wadi","gmail.com","@wadi123") # create password object
 
     def test_init(self):
         '''
@@ -31,14 +31,14 @@ class TestPassword(unittest.TestCase):
         '''
         tearDown method that runs tests after each test case is run.
         '''
-        Password.password_list = []
+        User.password_list = []
 
     def test_save_password(self):
         '''
         test_save_contact test case to test if the password object is saved to the password list
         '''
         self.new_password.save_password() #saving the new password account
-        self.assertEqual(len(Password.password_list),1)
+        self.assertEqual(len(User.password_list),1)
 
 
 
@@ -47,9 +47,9 @@ class TestPassword(unittest.TestCase):
         test_save_multiple_passwords to check if we can save multiple contacts
         '''
         self.new_password.save_password()
-        test_password = Password("wendy","tiktok.com","@muhoho456") #new password account
+        test_password = User("wendy","tiktok.com","@muhoho456") #new password account
         test_password.save_password()
-        self.assertEqual(len(Password.password_list),2)
+        self.assertEqual(len(User.password_list),2)
 
 
 
@@ -58,11 +58,11 @@ class TestPassword(unittest.TestCase):
         test_delete_password to test if a user can delete a password
         '''
         self.new_password.save_password()
-        test_password = Password("mugata","mugata.com","@mugata789") #Create a password account
+        test_password = User("mugata","mugata.com","@mugata789") #Create a password account
         test_password.save_password()
         
         self.new_password.delete_password()
-        self.assertEqual(len(Password.password_list),1) #Deleting a password account
+        self.assertEqual(len(User.password_list),1) #Deleting a password account
 
 
         def test_find_password_by_website(self):
@@ -70,10 +70,10 @@ class TestPassword(unittest.TestCase):
             test_find_password_by_website test to find password by website in password_list
             '''
             self.new_password.save_password()
-            test_password = Password("natalie","natalie.com","@natalie345")
+            test_password = User("natalie","natalie.com","@natalie345")
             test_password.save_password()
 
-            found_password = Password.find_by_website("natalie.com")
+            found_password = User.find_by_website("natalie.com")
             self.assertEqual(found_password.website,test_save_contact.website)
 
 
