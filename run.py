@@ -2,13 +2,19 @@
 
 from password import Password
 
-def create_password(password):
+def create_password(username,website,password):
     '''
     Function to generate a new password
     '''
 
     new_password = Password(username,website,password)
     return new_password
+
+def save_password(password):
+    '''
+    Method to save a password
+    '''
+    password.save_password()
 
 
 
