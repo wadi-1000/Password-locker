@@ -65,5 +65,17 @@ class TestPassword(unittest.TestCase):
         self.assertEqual(len(Password.password_list),1) #Deleting a password account
 
 
+        def test_find_password_by_website(self):
+            '''
+            test_find_password_by_website test to find password by website in password_list
+            '''
+            self.new_password.save_password()
+            test_password = Password("natalie","natalie.com","@natalie345")
+            test_password.save_password()
+
+            found_password = Password.find_by_website("natalie.com")
+            self.assertEqual(found_password.website,test_save_contact.website)
+
+
 if __name__ ==  '__main__':
         unittest.main()
