@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.9
 
-from password import Password
+from credentials import Credentials
 
 def create_password(username,website,password):
     '''
