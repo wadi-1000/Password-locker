@@ -1,37 +1,44 @@
 import random
 import string
 
+
+global users_list 
 class User:
-    """
-    Create User class that generates new instances of a user.
-    """
-    user_list = []
+	'''
+	Class to create user accounts and save their information
+	'''
+	# Class Variables
+	# global users_list
+	users_list = []
+	def __init__(self,first_name,last_name,password):
+		'''
+		Method to define the properties for each user object will hold.
+		'''
 
-    def __init__(self, username, password):
-        """
-        method that defines the properties of a user.
-        """
-        self.username = username
-        self.password = password
+		# instance variables
+		self.first_name = first_name
+		self.last_name = last_name
+		self.password = password
 
-    def save_user(self):
-        """
-        A method that saves a new user instace into the user list
-        """
-        User.user_list.append(self)
-    
-
-    @classmethod
-    def display_user(cls):
-        return cls.user_list
-
-    def delete_user(self):
-        '''
-        delete_account method deletes a  saved account from the list
-        '''
-        User.user_list.remove(self)
+	def save_user(self):
+		'''
+		Function to save a newly created user instance
+		'''
+		User.users_list.append(self)
 
 
+        user_credentials_list = []
+	@classmethod
+	def check_user(cls,first_name,password):
+		'''
+		Method that checks if the name and password entered match entries in the users_list
+		'''
+		current_user = ''
+		for user in User.users_list:
+			if (user.first_name == first_name and user.password == password):
+				current_user = user.first_name
+		return current_user
+		
         
 class Credentials:
     '''
@@ -40,7 +47,9 @@ class Credentials:
 
 
     credentials_list = []
+    
 
+  
 
     def __init__(self,username,website,password):
         '''
@@ -95,4 +104,17 @@ class Credentials:
 
 
 
-   
+    @classmethod
+    def password_exist(cls,password):
+        '''
+        Method that checks if a password exists from the credentials list.
+        Args:
+            password: Password to search if it exists
+        Returns :
+            Boolean: True or false depending if the contact exists
+        '''
+        for credentials in cls.credentials_list:
+            if credentials.password == password:
+                    return True
+
+        return False
