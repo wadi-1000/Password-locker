@@ -23,12 +23,6 @@ def save_user(user):
     User.save_user(user)
 
 
-def verify_user(first_name, password):
-    '''
-    Function that verifies the existance of the user before creating credentials
-    '''
-    checking_user = User.check_user(first_name, password)
-    return checking_user
 
 
 def create_password(username, website, password):
@@ -40,18 +34,18 @@ def create_password(username, website, password):
     return new_password
 
 
-def save_password(password):
+def save_password(credentials):
     '''
     Method to save a password account
     '''
-    password.save_password()
+    Credentials.save_password(credentials)
 
 
-def delete_password(password):
+def delete_password(credentials):
     '''
     Function to delete a password account
     '''
-    password.delete_password()
+    Credentials.delete_password(credentials)
 
 
 def find_by_website(website):
@@ -93,7 +87,7 @@ def main():
         print(' ')
         print("-"*60)
         print(
-            'Use these codes to navigate: \n ca-Create an Account \n li-Log In \n ex-Exit')
+            'Use these codes to navigate: \n ca-Create an Account \n ex-Exit')
         short_code = input('Enter a choice: ').lower().strip()
         if short_code == 'ex':
             break
@@ -109,19 +103,9 @@ def main():
             print(" ")
             print(
                 f'New Account Created for: {first_name} {last_name} using password: {password}')
-        elif short_code == 'li':
-            print("-"*60)
-            print(' ')
-            print('To login, enter your account details:')
-            user_name = input('Enter your first name - ').strip()
-            password = str(input('Enter your password - '))
-            user_exists = verify_user(user_name, password)
-            if user_exists == user_name:
-                print(" ")
-                print(
-                    f'Welcome {user_name}. Please choose an option to continue.')
+       
         while True:
-            print("Use these short codes:  cp - create a new password, fp -find a password, ex -exit the password list, dp -deleting a password, sp -saving a password, dc -display passwords")
+            print("Use these short codes:  cp - create a new password, sp -save new password,fp -find a password, ex -exit the password list, dp -deleting a password,  dc -display passwords")
             short_code = input().lower()
 
             if short_code == 'cp':
@@ -161,7 +145,7 @@ def main():
                 # new_password = (salt + pwdhash).decode('ascii')
 
                 # to create and save new password account
-                save_password(create_password(username, website, password))
+                save_password(create_password(username,website,password))
                 print('\n')
                 print(
                     f"New Password Account {username}, {website}, {password} created")
@@ -181,7 +165,7 @@ def main():
                 new_password = (username, website, password)
                 save_password(new_password)
                 print('\n')
-                print(f"Saved Password: {username}, {website}, {password}")
+                print(f"Saved Password Account: {username}, {website}, {password}")
                 print('\n')
 
             elif short_code == 'dc':
@@ -189,9 +173,9 @@ def main():
                     print("Here is a list of all your passwords")
                     print('\n')
 
-                    for password in display_passwords():
+                    for Credentials in display_passwords():
                         print(
-                            f"{password.username} {password.website} .....{password.password}")
+                            f"username:{Credentials.username},website:{Credentials.website},password:{Credentials.password}")
 
                         print('\n')
                 else:
@@ -201,20 +185,20 @@ def main():
 
             elif short_code == 'fp':
 
-                print("Enter the password you want to search for")
+                print("Enter the website you want to search for")
 
-                search_password = input()
-                if check_existing_password(search_password):
-                    search_account = (find_password(search_password))
+                search_website = input()
+                if find_by_website(search_website):
+                    search_account = (find_by_website(search_website))
                     print(
-                        f"{search_account.username} {search_account.website} {search_account.password}")
+                        f"{search_account.username}, {search_account.website}, {search_account.password}")
                     print('-' * 20)
-
+                    print("The credentials have been found")
                     print(f"Username.......{search_account.username}")
                     print(f"Website.......{search_account.website}")
                     print(f"Password.......{search_account.password}")
                 else:
-                    print("That password does not exist")
+                    print("That website does not exist")
                     print('\n')
 
             elif short_code == 'dp':
@@ -229,9 +213,9 @@ def main():
                 print("Password")
                 password = input()
 
-                delete_password(username, website, password)
+                delete_password()
                 print('\n')
-                print(f"Deleted Password: {username}, {website}, {password}")
+                print(f"Deleted Password: {Credentials.username}, {Credentials.website}, {Credentials.password}")
                 print('\n')
 
             elif short_code == "ex":

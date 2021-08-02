@@ -8,7 +8,7 @@ Locka is a python application that generates, saves and manages user's passwords
 
 ### Known Bugs
 
--  The only bug is the log in function is not working properly.
+-  The only bug is the delete function is not working properly.
 
 ### Behavoiur Driven Development
 
